@@ -14,3 +14,9 @@ ZoneSetting:ReceivingNote:79 == C#2
 Samples: http://www.philharmonia.co.uk/explore/make_music/double_bass
 Useful: http://xmlgrid.net/
 The Data format appears just to be hex-enoded UTF-8 with a bunch of null bytes, but I'm not sure why it even needs to be there at all.
+
+Do we need the PresetRef item?
+
+Useful: https://github.com/supersat/ableton-playlist-exporter/blob/master/AbletonPlaylistExporter.py
+
+MUST COPY FILES TO /SAMPLES

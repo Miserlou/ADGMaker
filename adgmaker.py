@@ -112,11 +112,14 @@ class ADGMaker(object):
         note_value = self.string_to_midi_note(note)
         ableton_path = "userfolder:" + file_path.rsplit(os.sep, 1)[0] + os.sep + '#' + mp3_name
 
+        data = file_path.encode('utf-16').encode('hex').upper()
+
         xml = self.jenv.get_template('instrument_xml.tpl').render(
                 name=name,
                 mp3_name=mp3_name,
                 note_value=note_value,
-                ableton_path=ableton_path
+                ableton_path=ableton_path,
+                data=data
             )
 
         return xml
