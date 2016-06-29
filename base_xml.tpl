@@ -387,6 +387,9 @@
             </AbletonDefaultPresetRef>
         </PresetRef>
         <BranchPresets>
+            {% for item in items %}
+            {{item}}
+            {% endfor %}
         </BranchPresets>
         <ReturnBranchPresets />
     </GroupDevicePreset>
