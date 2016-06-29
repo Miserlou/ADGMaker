@@ -3,7 +3,9 @@
 import argparse
 import glob
 import gzip
+import platform
 import requests
+import shutil
 import os
 import zipfile
 from jinja2 import Environment, FileSystemLoader
@@ -34,6 +36,10 @@ all_zip_urls = [
     "http://www.philharmonia.co.uk/assets/audio/samples/violin/violin.zip",
     "http://www.philharmonia.co.uk/assets/audio/samples/percussion/percussion.zip"
 ]
+
+home_dir = os.path.expanduser("~")
+samples_dir = os.path.join(home_dir, 'Music', 'Ableton', 'User Library', 'Samples', 'Imported')
+adg_dir = os.path.join(home_dir, 'Music', 'Ableton', 'User Library', 'Presets', 'Instruments', 'Created')
 
 ####################################################################
 # Main
@@ -73,6 +79,14 @@ class ADGMaker(object):
             print(help_message)
             return
 
+        # Make sure we have the necessary dirs to install into.
+        if self.vargs['install']:
+            if not os.path.exists(samples_dir):
+                os.makedirs(samples_dir)
+
+            if not os.path.exists(adg_dir):
+                os.makedirs(adg_dir)
+
         if self.vargs['samples_path']:
             self.create_adg_from_samples_path(self.vargs['samples_path'][0])
         if self.vargs['all']:
@@ -80,7 +94,7 @@ class ADGMaker(object):
 
                 # Download the zip
                 zip_file_name = zip_url.rsplit('/',1)[1]
-                print("Downloading " + zip_file_name + "..")
+                print("\nDownloading " + zip_file_name + "..\n")
 
                 with open(zip_file_name, 'wb') as handle:
                     response = requests.get(zip_url, stream=True)
@@ -121,6 +135,11 @@ class ADGMaker(object):
             final_xml = self.create_base_xml(adg_name)
             adg_file = self.create_adg(adg_name, final_xml)
 
+            if self.vargs['install']:
+                print("Installing " + adg_file + "..")
+                dest_path = os.path.join(adg_dir, adg_file)
+                shutil.move(adg_file, dest_path)
+
         return adg_file
 
     def add_mp3_to_instrument(self, file_path):
@@ -145,6 +164,11 @@ class ADGMaker(object):
 
         adg_contents.append(instrument_xml)
         self.adgs[adg_name] = adg_contents
+
+        # Install the MP3?
+        if self.vargs['install']:
+            dest_path = os.path.join(samples_dir, file_name_no_mp3 + '.mp3')
+            shutil.move(file_path, dest_path)
 
         return
         
@@ -326,6 +350,10 @@ def handle(): # pragma: no cover
     """
     Main program execution handler.
     """
+
+    if platform.system() != "Darwin":
+        print("ADGMaker currently only works for OSX. Sorry.")
+        return
 
     try:
         adg_maker = ADGMaker()
