@@ -4,7 +4,7 @@ Create awesome Free (as in Freedom!) Ableton Live Instuments from [Philharmonic 
 
 ## Installation
 
-    ADGMaker requires that you have Python, OSX, and Ableton Live installed already. Then, simply:
+ADGMaker requires that you have Python, OSX, and Ableton Live installed already. Then, simply:
 
     $ pip install adgmaker
 
