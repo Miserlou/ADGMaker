@@ -3,7 +3,9 @@
 import argparse
 import glob
 import gzip
+import requests
 import os
+import zipfile
 from jinja2 import Environment, FileSystemLoader
 
 ####################################################################
@@ -59,7 +61,7 @@ class ADGMaker(object):
         help_message = "Please supply a path to a folder of MP3s."
         parser = argparse.ArgumentParser(description='ADGMaker - Create Ableton Live Instruments.\n')
         parser.add_argument('samples_path', metavar='U', type=str, nargs='*', help=help_message)
-        parser.add_argument('-d', action='store_true', help='Debug (no delete XML)', default=False)
+        parser.add_argument('-d', '--debug', action='store_true', help='Debug (no delete XML)', default=False)
         parser.add_argument('-i', '--install', action='store_true', help='Install into Ableton directory', default=False)
         parser.add_argument('-a', '--all', action='store_true', help='Fetch all available instruments from philharmonia website', default=False)
 
@@ -67,12 +69,45 @@ class ADGMaker(object):
         self.vargs = vars(args)
 
         # Samples are an important requirement.
-        if not self.vargs['samples_path']:
+        if not self.vargs['samples_path'] and not self.vargs['all']:
             print(help_message)
             return
 
+        if self.vargs['samples_path']:
+            self.create_adg_from_samples_path(self.vargs['samples_path'][0])
+        if self.vargs['all']:
+            for zip_url in all_zip_urls:
+
+                # Download the zip
+                zip_file_name = zip_url.rsplit('/',1)[1]
+                print("Downloading " + zip_file_name + "..")
+
+                with open(zip_file_name, 'wb') as handle:
+                    response = requests.get(zip_url, stream=True)
+                    for block in response.iter_content(1024):
+                        handle.write(block)
+
+                # Unzip to a directory
+                dir_name = zip_file_name.split('.zip')[0]
+                zip_ref = zipfile.ZipFile(zip_file_name, 'r')
+                zip_ref.extractall(dir_name)
+                zip_ref.close()
+
+                # Delete zip
+                os.remove(zip_file_name) 
+
+                # Create ADG from samples
+                self.create_adg_from_samples_path(dir_name)
+
+        print("Done!")
+
+    def create_adg_from_samples_path(self, samples_path):
+        """
+        Create an ADG from the samples path.
+
+        """
+
         # Normalize the input
-        samples_path = self.vargs['samples_path'][0]
         if samples_path[-1] != os.sep:
             samples_path = samples_path + os.sep
         samples_path = samples_path + '*.mp3'
@@ -84,9 +119,9 @@ class ADGMaker(object):
 
         for adg_name in self.adgs.keys():
             final_xml = self.create_base_xml(adg_name)
-            self.create_adg(adg_name, final_xml)
+            adg_file = self.create_adg(adg_name, final_xml)
 
-        print("Done!")
+        return adg_file
 
     def add_mp3_to_instrument(self, file_path):
         """
@@ -173,7 +208,7 @@ class ADGMaker(object):
 
         print("Created " + adg_file + "!")
 
-        return
+        return adg_file
 
     ##
     # Utility
