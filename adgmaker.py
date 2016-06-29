@@ -20,6 +20,7 @@ class ADGMaker(object):
 
     # Ex: {'cello_05_forte_arco-normal': [ xml, xml, .. ]
     adgs = {}
+    vargs = None
 
     def handle(self, argv=None):
         """
@@ -31,16 +32,18 @@ class ADGMaker(object):
         help_message = "Please supply a path to a folder of MP3s."
         parser = argparse.ArgumentParser(description='ADGMaker - Create Ableton Live Instruments.\n')
         parser.add_argument('samples_path', metavar='U', type=str, nargs='*', help=help_message)
+        parser.add_argument('-d', action='store_true', help='Debug (no delete XML)', default=False)
+
         args = parser.parse_args(argv)
-        vargs = vars(args)
+        self.vargs = vars(args)
 
         # Samples are an important requirement.
-        if not vargs['samples_path']:
+        if not self.vargs['samples_path']:
             print(help_message)
             return
 
         # Normalize the input
-        samples_path = vargs['samples_path'][0]
+        samples_path = self.vargs['samples_path'][0]
         if samples_path[-1] != os.sep:
             samples_path = samples_path + os.sep
         samples_path = samples_path + '*.mp3'
@@ -132,6 +135,9 @@ class ADGMaker(object):
 
         with open(xml_name) as f_in, gzip.open(adg_file, 'wb') as f_out:
             f_out.writelines(f_in)
+
+        if not self.vargs.get('d', False):
+            os.remove(xml_name) 
 
         print("Created " + adg_file + "!")
 
