@@ -96,7 +96,7 @@
                                 <Volume Value="1" />
                                 <Link Value="false" />
                                 <SampleStart Value="0" />
-                                <SampleEnd Value="36177" />
+                                <SampleEnd Value="9999999" />
                                 <SustainLoop>
                                     <Start Value="0" />
                                     <End Value="36177" />

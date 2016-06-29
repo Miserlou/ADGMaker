@@ -152,19 +152,73 @@ class ADGMaker(object):
 
     def string_to_midi_note(self, midstr):
         """ 
-            Stolen from: http://stackoverflow.com/questions/13926280/musical-note-string-c-4-f-3-etc-to-midi-note-value-in-python 
+            In Ableton, C3 = 60 supposedly,
+
+            but,
+
+            ZoneSetting:ReceivingNote:80 == C2
+            ZoneSetting:ReceivingNote:79 == C#2
+
+
         """
-        notes = [["C"],["Cs"],["D"],["Ds"],["E"],["F"],["Fs"],["G"],["Gs"],["A"],["As"],["B"]]
-        answer = 0
-        i = 0
-        letter = midstr[:-1]
-        for note in notes:
-            if letter.upper() == note[0]:
-                answer = i
-                break
-            i += 1
-        answer += (int(midstr[-1]))*12
-        return answer
+
+        # I am a bad person.
+        notes_ref = {
+            'C1': 92,           
+            'Cs1': 91,
+            'D1': 90,
+            'Ds1': 89,
+            'E1': 88,
+            'F1': 87,
+            'Fs1': 86,
+            'G1': 85,
+            'Gs1': 84,
+            'A1': 83,
+            'As1': 82,
+            'B1': 81,
+            
+            'C2': 80,           
+            'Cs2': 79,
+            'D2': 78,
+            'Ds2': 77,
+            'E2': 76,
+            'F2': 75,
+            'Fs2': 74,
+            'G2': 73,
+            'Gs2': 72,
+            'A2': 71,
+            'As2': 70,
+            'B2': 69,
+
+            'C3': 68,           
+            'Cs3': 67,
+            'D3': 66,
+            'Ds3': 65,
+            'E3': 64,
+            'F3': 63,
+            'Fs3': 62,
+            'G3': 61,
+            'Gs3': 60,
+            'A3': 59,
+            'As3': 58,
+            'B3': 57,
+
+            'C4': 56,           
+            'Cs4': 55,
+            'D4': 54,
+            'Ds4': 53,
+            'E4': 52,
+            'F4': 51,
+            'Fs4': 50,
+            'G4': 49,
+            'Gs4': 48,
+            'A4': 47,
+            'As4': 46,
+            'B4': 45,
+
+        }
+    
+        return notes_ref[midstr]
 
 def handle(): # pragma: no cover
     """
