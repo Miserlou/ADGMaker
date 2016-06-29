@@ -1,10 +1,10 @@
 # ADGMaker
 
-Create Ableton Live Instuments from the Creative Commons Philharmonic Orchestra samples.
+Create Free (as in Freedom!) Ableton Live Instuments from the (http://www.philharmonia.co.uk/explore/make_music/double_bass)[Philharmonic Orchestra] samples.
 
 ## Usage
 
-Download an instrument from [http://www.philharmonia.co.uk/explore/make_music/double_bass](the Philharmonic website) and unzip it.
+Download an instrument from (http://www.philharmonia.co.uk/explore/make_music/double_bass)[the Philharmonic website] and unzip it.
 
 Then, (from a virtualenv), run:
 
