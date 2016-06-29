@@ -7,6 +7,33 @@ import os
 from jinja2 import Environment, FileSystemLoader
 
 ####################################################################
+# Data
+####################################################################
+
+all_zip_urls = [
+    "http://www.philharmonia.co.uk/assets/audio/samples/banjo/banjo.zip",
+    "http://www.philharmonia.co.uk/assets/audio/samples/bass%20clarinet/bass%20clarinet.zip",
+    "http://www.philharmonia.co.uk/assets/audio/samples/bassoon/bassoon.zip",
+    "http://www.philharmonia.co.uk/assets/audio/samples/cello/cello.zip",
+    "http://www.philharmonia.co.uk/assets/audio/samples/clarinet/clarinet.zip",
+    "http://www.philharmonia.co.uk/assets/audio/samples/contrabassoon/contrabassoon.zip",
+    "http://www.philharmonia.co.uk/assets/audio/samples/cor%20anglais/cor%20anglais.zip",
+    "http://www.philharmonia.co.uk/assets/audio/samples/double%20bass/double%20bass.zip",
+    "http://www.philharmonia.co.uk/assets/audio/samples/flute/flute.zip",
+    "http://www.philharmonia.co.uk/assets/audio/samples/french%20horn/french%20horn.zip",
+    "http://www.philharmonia.co.uk/assets/audio/samples/guitar/guitar.zip",
+    "http://www.philharmonia.co.uk/assets/audio/samples/mandolin/mandolin.zip",
+    "http://www.philharmonia.co.uk/assets/audio/samples/oboe/oboe.zip",
+    "http://www.philharmonia.co.uk/assets/audio/samples/saxophone/saxophone.zip",
+    "http://www.philharmonia.co.uk/assets/audio/samples/trombone/trombone.zip",
+    "http://www.philharmonia.co.uk/assets/audio/samples/trumpet/trumpet.zip",
+    "http://www.philharmonia.co.uk/assets/audio/samples/tuba/tuba.zip",
+    "http://www.philharmonia.co.uk/assets/audio/samples/viola/viola.zip",
+    "http://www.philharmonia.co.uk/assets/audio/samples/violin/violin.zip",
+    "http://www.philharmonia.co.uk/assets/audio/samples/percussion/percussion.zip"
+]
+
+####################################################################
 # Main
 ####################################################################
 
@@ -33,6 +60,8 @@ class ADGMaker(object):
         parser = argparse.ArgumentParser(description='ADGMaker - Create Ableton Live Instruments.\n')
         parser.add_argument('samples_path', metavar='U', type=str, nargs='*', help=help_message)
         parser.add_argument('-d', action='store_true', help='Debug (no delete XML)', default=False)
+        parser.add_argument('-i', '--install', action='store_true', help='Install into Ableton directory', default=False)
+        parser.add_argument('-a', '--all', action='store_true', help='Fetch all available instruments from philharmonia website', default=False)
 
         args = parser.parse_args(argv)
         self.vargs = vars(args)
