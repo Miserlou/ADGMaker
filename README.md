@@ -1,7 +1,7 @@
 ![ADGMaker!](http://i.imgur.com/2v7Hd3Q.png)
 # ADGMaker
 
-Automatically create and install hundreds of awesome Free (as in Freedom!) Ableton Live Instuments from the super high-quality [Philharmonic Orchestra](http://www.philharmonia.co.uk/explore/make_music/) samples.
+Automatically create and install hundreds of awesome Free (as in Freedom!) Ableton Live Instuments from the super high-quality [Philharmonia Orchestra](http://www.philharmonia.co.uk/explore/make_music/) samples.
 
 ## Installation
 
@@ -19,7 +19,7 @@ Then go to File -> Manage Files -> Manage User Library and use your new instrume
 
 ## Manual Usage
 
-Download an instrument from [the Philharmonic Orchestra website](http://www.philharmonia.co.uk/explore/make_music/double_bass) and unzip it.
+Download an instrument from [the Philharmonia Orchestra website](http://www.philharmonia.co.uk/explore/make_music/double_bass) and unzip it.
 
 Then, (from a virtualenv), run:
 
