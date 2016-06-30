@@ -67,8 +67,8 @@ class ADGMaker(object):
         Parses command, load settings and dispatches accordingly.
 
         """
-        help_message = "Please supply a path to a folder of MP3s."
-        parser = argparse.ArgumentParser(description='ADGMaker - Create Ableton Live Instruments.\n')
+        help_message = "Please supply a path to a folder of MP3s or --all. See --help for more options."
+        parser = argparse.ArgumentParser(description='ADGMaker - Create and install Ableton Live Instruments.\n')
         parser.add_argument('samples_path', metavar='U', type=str, nargs='*', help=help_message)
         parser.add_argument('-d', '--debug', action='store_true', help='Debug (no delete XML)', default=False)
         parser.add_argument('-i', '--install', action='store_true', help='Install into Ableton directory', default=False)
