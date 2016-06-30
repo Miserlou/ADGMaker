@@ -39,6 +39,8 @@ Then go to File -> Manage Files -> Manage User Library and use your new instrume
 
 ## Caveats
 
+Some of the ADGs only have a few items in them, but most instruments have at least a few ADG files that have a couple of complete scales. All of the percussion instruments have been combined into a single percussion ADG.
+
 Some of the samples have a slight delay, so you might have to manually set the sample start time to your liking. I also like to add a little bit of fade out, reverb, and put them all into the same choke group, depending on the sound I want.
 
 ## TODO
