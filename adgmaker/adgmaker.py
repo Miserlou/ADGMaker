@@ -51,7 +51,8 @@ class ADGMaker(object):
     Read CLI input, create ADGs.
 
     """
-    jenv = Environment(loader=FileSystemLoader(os.getcwd()),
+
+    jenv = Environment(loader=FileSystemLoader(os.path.dirname(os.path.realpath(__file__))),
                          trim_blocks=True)
 
     # Ex: {'cello_05_forte_arco-normal': [ xml, xml, .. ]
@@ -118,7 +119,7 @@ class ADGMaker(object):
 
                 self.adgs = {}
 
-        print("Done!")
+        print("Done! Remember to update your User Library in Live to see these new instruments!")
 
     def create_adg_from_samples_path(self, samples_path):
         """
