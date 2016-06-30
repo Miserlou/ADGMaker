@@ -1,3 +1,4 @@
+![ADGMaker!](http://i.imgur.com/2v7Hd3Q.png)
 # ADGMaker
 
 Automatically create and install hundreds of awesome Free (as in Freedom!) Ableton Live Instuments from the super high-quality [Philharmonic Orchestra](http://www.philharmonia.co.uk/explore/make_music/) samples.
