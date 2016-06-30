@@ -1,6 +1,7 @@
 # ADGMaker
 
 import argparse
+import fnmatch
 import glob
 import gzip
 import platform
@@ -56,6 +57,7 @@ class ADGMaker(object):
     # Ex: {'cello_05_forte_arco-normal': [ xml, xml, .. ]
     adgs = {}
     vargs = None
+    default_note = 104
 
     def handle(self, argv=None):
         """
@@ -127,12 +129,23 @@ class ADGMaker(object):
         # Normalize the input
         if samples_path[-1] != os.sep:
             samples_path = samples_path + os.sep
-        samples_path = samples_path + '*.mp3'
+        
+        # Percussion is a folder of folders
+        given_name = None
+        if 'percussion' in samples_path:
+            mp3_list = []
+            for root, dirnames, filenames in os.walk(samples_path):
+                for filename in fnmatch.filter(filenames, '*.mp3'):
+                    mp3_list.append(os.path.join(root, filename))
+            given_name = 'percussion'
 
-        mp3_list = glob.glob(samples_path)
+        else:
+            samples_path = samples_path + '*.mp3'
+            mp3_list = glob.glob(samples_path)
+
         for mp3 in mp3_list:
             file_path = os.path.abspath(mp3)
-            self.add_mp3_to_instrument(file_path)
+            self.add_mp3_to_instrument(file_path, given_name)
 
         for adg_name in self.adgs.keys():
             final_xml = self.create_base_xml(adg_name)
@@ -145,7 +158,7 @@ class ADGMaker(object):
 
         return adg_file
 
-    def add_mp3_to_instrument(self, file_path):
+    def add_mp3_to_instrument(self, file_path, given_name=None):
         """
         Given a complete file path, add to the XML for this instrument.
 
@@ -158,7 +171,11 @@ class ADGMaker(object):
         instrument_xml = self.create_instrument_xml(file_path)
         file_name_no_mp3 = file_path.split('.mp3')[0].split(os.sep)[-1]
         instrument_name, note, length, velocity, hit_type = file_name_no_mp3.split('_')
-        adg_name = instrument_name + '_' + length + "_" + velocity + '_' + hit_type
+
+        if given_name:
+            adg_name = given_name
+        else:
+            adg_name = instrument_name + '_' + length + "_" + velocity + '_' + hit_type
 
         if self.adgs.has_key(adg_name):
             adg_contents = self.adgs[adg_name]
@@ -374,8 +391,18 @@ class ADGMaker(object):
             'B8': -3,
 
         }
-    
-        return notes_ref[midstr]
+
+        note = notes_ref.get(midstr, None)
+        if note:
+            return note
+        else:
+            note = self.default_note
+            self.default_note = self.default_note - 1
+
+            if self.default_note == -16:
+                self.default_note = 104
+
+            return note
 
 def handle(): # pragma: no cover
     """
