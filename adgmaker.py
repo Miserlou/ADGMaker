@@ -89,6 +89,7 @@ class ADGMaker(object):
 
         if self.vargs['samples_path']:
             self.create_adg_from_samples_path(self.vargs['samples_path'][0])
+
         if self.vargs['all']:
             for zip_url in all_zip_urls:
 
@@ -112,6 +113,8 @@ class ADGMaker(object):
 
                 # Create ADG from samples
                 self.create_adg_from_samples_path(dir_name)
+
+                self.adgs = {}
 
         print("Done!")
 
@@ -252,6 +255,20 @@ class ADGMaker(object):
 
         # I am a bad person.
         notes_ref = {
+
+            'C0': 104,           
+            'Cs0': 103,
+            'D0': 102,
+            'Ds0': 101,
+            'E0': 100,
+            'F0': 99,
+            'Fs0': 98,
+            'G0': 97,
+            'Gs0': 96,
+            'A0': 95,
+            'As0': 94,
+            'B0': 93,
+
             'C1': 92,           
             'Cs1': 91,
             'D1': 90,
@@ -342,6 +359,20 @@ class ADGMaker(object):
             'A7': 11,
             'As7': 10,
             'B7': 9,
+
+            'C8': 8,           
+            'Cs8': 7,
+            'D8': 6,
+            'Ds8': 5,
+            'E8': 4,
+            'F8': 3,
+            'Fs8': 2,
+            'G8': 1,
+            'Gs8': 0,
+            'A8': -1,
+            'As8': -2,
+            'B8': -3,
+
         }
     
         return notes_ref[midstr]
