@@ -14,7 +14,7 @@ with open(os.path.join(os.path.dirname(__file__), 'requirements.txt')) as f:
 
 setup(
     name='adgmaker',
-    version='0.1.1',
+    version='0.1.2',
     packages=['adgmaker'],
     install_requires=required,
     test_suite='nose.collector',

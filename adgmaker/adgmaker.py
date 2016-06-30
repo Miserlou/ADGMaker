@@ -400,7 +400,7 @@ class ADGMaker(object):
             note = self.default_note
             self.default_note = self.default_note - 1
 
-            if self.default_note == -16:
+            if self.default_note == 0:
                 self.default_note = 104
 
             return note
