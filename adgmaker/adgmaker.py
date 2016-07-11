@@ -4,6 +4,7 @@ import argparse
 import fnmatch
 import glob
 import gzip
+import pkg_resources
 import platform
 import requests
 import shutil
@@ -73,9 +74,16 @@ class ADGMaker(object):
         parser.add_argument('-d', '--debug', action='store_true', help='Debug (no delete XML)', default=False)
         parser.add_argument('-i', '--install', action='store_true', help='Install into Ableton directory', default=False)
         parser.add_argument('-a', '--all', action='store_true', help='Fetch all available instruments from philharmonia website', default=False)
+        parser.add_argument('-v', '--version', action='store_true', default=False,
+            help='Display the current version of ADGMaker')
 
         args = parser.parse_args(argv)
         self.vargs = vars(args)
+
+        if self.vargs['version']:
+            version = pkg_resources.require("adgmaker")[0].version
+            print(version)
+            return
 
         # Samples are an important requirement.
         if not self.vargs['samples_path'] and not self.vargs['all']:
