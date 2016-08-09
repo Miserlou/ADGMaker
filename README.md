@@ -3,6 +3,29 @@
 
 Automatically create and install hundreds of awesome Free (as in Freedom!) Ableton Live Instuments from the super high-quality [Philharmonia Orchestra](http://www.philharmonia.co.uk/explore/make_music/) samples.
 
+Currently includes:
+
+  * Banjo
+  * Bass Clarinet
+  * Bassoon
+  * Cello
+  * Clarinet
+  * Contrabassoon
+  * Cor Anglais
+  * Double Bass
+  * Flute
+  * French Horn
+  * Guitar
+  * Mandolin
+  * Oboe
+  * Saxophone
+  * Trombone
+  * Trumpet
+  * Tuba
+  * Viola
+  * Violin
+  * Hella Percussions!
+
 ## Installation
 
 ADGMaker requires that you have Python, OSX, and Ableton Live installed already. Then, simply:
