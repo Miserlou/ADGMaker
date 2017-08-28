@@ -66,6 +66,9 @@ Some of the ADGs only have a few items in them, but most instruments have at lea
 
 Some of the samples have a slight delay, so you might have to manually set the sample start time to your liking. I also like to add a little bit of fade out, reverb, and put them all into the same choke group, depending on the sound I want.
 
+## Related
+ * [UltimateTemplate](https://github.com/Miserlou/UltimateTemplate) - Production-ready Ableton Live project templates.
+
 ## TODO
 
 * Support other sound archives?
