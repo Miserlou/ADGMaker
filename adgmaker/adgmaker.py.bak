@@ -106,7 +106,7 @@ class ADGMaker(object):
 
                 # Download the zip
                 zip_file_name = zip_url.rsplit('/',1)[1]
-                print(("\nDownloading " + zip_file_name + "..\n"))
+                print("\nDownloading " + zip_file_name + "..\n")
 
                 with open(zip_file_name, 'wb') as handle:
                     response = requests.get(zip_url, stream=True)
@@ -156,12 +156,12 @@ class ADGMaker(object):
             file_path = os.path.abspath(mp3)
             self.add_mp3_to_instrument(file_path, given_name)
 
-        for adg_name in list(self.adgs.keys()):
+        for adg_name in self.adgs.keys():
             final_xml = self.create_base_xml(adg_name)
             adg_file = self.create_adg(adg_name, final_xml)
 
             if self.vargs['install']:
-                print(("Installing " + adg_file + ".."))
+                print("Installing " + adg_file + "..")
                 dest_path = os.path.join(adg_dir, adg_file)
                 shutil.move(adg_file, dest_path)
 
@@ -186,7 +186,7 @@ class ADGMaker(object):
         else:
             adg_name = instrument_name + '_' + length + "_" + velocity + '_' + hit_type
 
-        if adg_name in self.adgs:
+        if self.adgs.has_key(adg_name):
             adg_contents = self.adgs[adg_name]
         else:
             adg_contents = []
@@ -259,7 +259,7 @@ class ADGMaker(object):
         if not self.vargs.get('d', False):
             os.remove(xml_name) 
 
-        print(("Created " + adg_file + "!"))
+        print("Created " + adg_file + "!")
 
         return adg_file
 
