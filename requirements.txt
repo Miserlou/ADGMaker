@@ -1,4 +1,4 @@
 Jinja2==2.9
 MarkupSafe==0.23
 requests==2.18.3
-wheel==0.34.2
+wheel==0.35.1
